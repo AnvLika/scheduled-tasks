@@ -20,26 +20,45 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
+          
 
       - name: Check secrets are configured
         env:
-          MY_EMAIL: ${{ secrets.MY_EMAIL }}
-          MY_PASSWORD: ${{ secrets.MY_PASSWORD }}
+          MY_PHONE: ${{ secrets.MY_PHONE }}
+          account_sid: ${{ secrets.TWILIO_API_SID }}
+          auth_token: ${{ secrets.TWILIO_AUTH_TOKEN }}
+          app_id: ${{ secrets.WEATHER_APP_KEY }}
         run: |
-          if [ -z "$MY_EMAIL" ]; then
-            echo "MY_EMAIL secret is not set!"
+          if [ -z "MY_PHONE" ]; then
+            echo "MY_PHONE secret is not set!"
             echo "Go to Settings > Secrets > Actions and add it."
             exit 1
           else
-            echo "MY_EMAIL is configured"
+            echo "MY_PHONE is configured"
           fi
 
-          if [ -z "$MY_PASSWORD" ]; then
-            echo "MY_PASSWORD secret is not set!"
+          if [ -z "$account_sid" ]; then
+            echo "account_sid secret is not set!"
             echo "Go to Settings > Secrets > Actions and add it."
             exit 1
           else
-            echo "MY_PASSWORD is configured"
+            echo "account_sid is configured"
+          fi
+
+          if [ -z "$auth_token" ]; then
+            echo "auth_token secret is not set!"
+            echo "Go to Settings > Secrets > Actions and add it."
+            exit 1
+          else
+            echo "auth_token is configured"
+          fi
+
+          if [ -z "$app_id" ]; then
+            echo "app_id secret is not set!"
+            echo "Go to Settings > Secrets > Actions and add it."
+            exit 1
+          else
+            echo "app_id is configured"
           fi
 
           echo ""
@@ -53,20 +72,6 @@ jobs:
             echo "main.py found"
           else
             echo "main.py not found!"
-            exit 1
-          fi
-
-          if [ -f "requirements.txt" ]; then
-            echo "requirements.txt found"
-          else
-            echo "requirements.txt not found!"
-            exit 1
-          fi
-
-          if [ -f "birthdays.csv" ]; then
-            echo "birthdays.csv found"
-          else
-            echo "birthdays.csv not found!"
             exit 1
           fi
 
