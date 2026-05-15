@@ -1,17 +1,16 @@
 import requests
 from twilio.rest import Client
 import os
-from dotenv import load_dotenv
-load_dotenv()
 
 
 account_sid =  os.environ.get("TWILIO_ACCOUNT_SID")
 auth_token =os.environ.get("TWILIO_AUTH_TOKEN")
 MY_PHONE = os.environ.get("MY_PHONE")
+app_id = os.environ.get("APP_KEY")
+
 
 client = Client(account_sid, auth_token)
 
-app_id = os.environ.get("APP_KEY")
 
 parameters =\
     {"appid": app_id,
